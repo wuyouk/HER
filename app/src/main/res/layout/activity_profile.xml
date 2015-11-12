@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/profile">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/banner_image">
+
+
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/backButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/back_arrow"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
+
+
+
+    <com.example.davidyu.her.Views.SlidingTabLayout
+        android:id="@+id/profile_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></com.example.davidyu.her.Views.SlidingTabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:id="@+id/profile_pager">
+    </android.support.v4.view.ViewPager>
+</LinearLayout>
