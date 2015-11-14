@@ -14,5 +14,6 @@
     <color name="FAFAFA">#FAFAFA</color>
     <color name="open">#30FF37</color>
     <color name="done">#9E9E9E</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

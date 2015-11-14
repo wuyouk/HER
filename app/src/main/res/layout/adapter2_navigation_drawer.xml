@@ -15,6 +15,6 @@
         android:id="@+id/item"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:textColor="#BDBDBD"
+        android:textColor="#000"
         android:layout_marginLeft="40dp" />
 </LinearLayout>

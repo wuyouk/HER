@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 
 import com.example.davidyu.her.Activities.ProfileActivity;
 import com.example.davidyu.her.Adapters.NavigationDrawerAdapter1;
 import com.example.davidyu.her.Adapters.NavigationDrawerAdapter2;
+import com.example.davidyu.her.Authenticator.LoginActivity;
+import com.example.davidyu.her.Authenticator.ServerRequest;
+import com.example.davidyu.her.Authenticator.UserLocalStore;
 import com.example.davidyu.her.R;
 
 public class NavigationDrawerFragment extends Fragment {
@@ -33,12 +34,17 @@ public class NavigationDrawerFragment extends Fragment {
     ListView listView;
     ListView listView2;
     static Activity activity;
+    UserLocalStore userLocalStore;
+    ServerRequest serverRequest;
+
     public NavigationDrawerFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userLocalStore = new UserLocalStore(getActivity());
+        serverRequest = new ServerRequest(getContext());
     }
 
     @Override
@@ -90,6 +96,13 @@ public class NavigationDrawerFragment extends Fragment {
                         //Intent i2 = new Intent(getActivity(), LoginActivity.class);
                         //startActivity(i2);
                         //activity.finish();
+
+
+                        //clear session data using volley
+
+                        serverRequest.logoutUser();
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+
                         break;
 
                     default:
