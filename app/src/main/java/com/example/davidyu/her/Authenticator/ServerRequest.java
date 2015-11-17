@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,12 +13,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.davidyu.her.Activities.MainActivity;
+import com.example.davidyu.her.Model.Tip;
+import com.example.davidyu.her.Singleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -171,6 +176,76 @@ public class ServerRequest {
         });
 
         queue.add(strReq);
+    }
+
+    //function to get tips from server
+    public void getTips(){
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        //parameters to be passed into volley POST request
+
+        Map<String,String> params = new HashMap<>();
+        /*params.put("username", username);
+        params.put("password", password);*/
+
+        CustomRequest jsonObjectRequest = new CustomRequest(Request.Method.POST,
+                SERVER_ADDRESS + "getTips.php",
+                params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.e("volley", "success");
+
+                        List<Tip> tipList = new ArrayList<>();
+
+                        JSONArray jsonArray;
+                        JSONObject jsonObject;
+                        String name = "", text = "", image = "";
+
+                        try {
+                            jsonArray = response.getJSONArray("tips");
+
+                            //loop through json array
+                            for(int i=0; i<jsonArray.length(); i++){
+                                jsonObject = jsonArray.getJSONObject(i);
+                                name = jsonObject.getString("name");
+                                text = jsonObject.getString("text");
+                                image = jsonObject.getString("image");
+
+                                Tip t = new Tip();
+                                t.setName(name);
+                                t.setText(text);
+                                t.setIcon(image);
+
+                                tipList.add(t);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        Singleton.getInstance().setTipList(tipList);
+
+                        if (context instanceof MainActivity){
+
+                            MainActivity activity = (MainActivity) context;
+                            activity.updateTipList();
+                        }
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("volley", "failure");
+                        progressDialog.dismiss();
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
     }
 
 

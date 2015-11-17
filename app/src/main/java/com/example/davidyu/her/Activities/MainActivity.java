@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.example.davidyu.her.Adapters.PagerAdapter;
 import com.example.davidyu.her.Authenticator.LoginActivity;
 import com.example.davidyu.her.Authenticator.UserLocalStore;
+import com.example.davidyu.her.Fragments.MainSlidingDailyTipsTabFragment;
 import com.example.davidyu.her.Fragments.NavigationDrawerFragment;
 import com.example.davidyu.her.R;
 import com.example.davidyu.her.Views.SlidingTabLayout;
@@ -88,5 +89,11 @@ public class MainActivity extends ActionBarActivity {
     //helper function to check if user is logged in
     private boolean authenticate(){
         return userLocalStore.isUserLoggedIn();
+    }
+
+    public void updateTipList(){
+        pager.setCurrentItem(0);
+
+
     }
 }
