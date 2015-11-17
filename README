@@ -1,0 +1,4 @@
+unzip the file com.daimajia.swipelayout.zip
+move the unzipped folder into app/build/intermediates/exploded-aar/
+
+In Android Studio: Tools -> android -> Sync Project with Gradle Files
