@@ -62,4 +62,8 @@ public class ProfileActivity extends FragmentActivity {
         stl.setViewPager(viewPager);
     }
 
+    public void goToThirdFragment(){
+        viewPager.setCurrentItem(2,true);
+    }
+
 }

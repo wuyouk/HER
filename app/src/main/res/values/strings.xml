@@ -4,8 +4,60 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string-array name="tabs">
-        <item>First Profile</item>
-        <item>Second Profile</item>
-        <item>Third Profile</item>
+        <item>Info</item>
+        <item>Personality</item>
+        <item>Hobbies</item>
+        <item>Relationship</item>
+    </string-array>
+    <string-array name="occupation_array">
+        <item>Student</item>
+        <item>Intern</item>
+        <item>Early Career</item>
+        <item>Professional</item>
+        <item>Senior</item>
+    </string-array>
+    <string-array name="earnings_array">
+        <item>0 – 10000</item>
+        <item>10000 – 50000</item>
+        <item>50000 – 100000</item>
+        <item>100000 – 200000</item>
+        <item>200000 – 350000</item>
+        <item> > 350000 HKD</item>
+    </string-array>
+    <string-array name="personalities">
+        <item>ARCHITECT</item>
+        <item>LOGICIAN</item>
+        <item>COMMANDER</item>
+        <item>DEBATOR</item>
+        <item>ADOVACATE</item>
+        <item>MEDIATOR</item>
+        <item>PROTAGANIST</item>
+        <item>CAMPAIGNER</item>
+        <item>LOGISTICIAN</item>
+        <item>DEFENDER</item>
+        <item>EXECUTIVE</item>
+        <item>CONSUL</item>
+        <item>VIRTUOSO</item>
+        <item>ADVENTURER</item>
+        <item>ENTREPRENEURSHIP</item>
+        <item>ENTERTAINER</item>
+    </string-array>
+    <string-array name="personalities_description">
+        <item>Imaginative and strategic thinkers, with a plan for everything.</item>
+        <item>Innovative inventors with an unquenchable thirst for knowledge.</item>
+        <item>Bold, imaginative and strong-willed leaders, always finding a way – or making one.</item>
+        <item>Smart and curious thinkers who cannot resist an intellectual challenge.</item>
+        <item>Quiet and mystical, yet very inspiring and tireless idealists.</item>
+        <item>Poetic, kind and altruistic people, always eager to help a good cause.</item>
+        <item>Charismatic and inspiring leaders, able to mesmerize their listeners.</item>
+        <item>Enthusiastic, creative and sociable free spirits, who can always find a reason to smile.</item>
+        <item>Practical and fact-minded individuals, whose reliability cannot be doubted.</item>
+        <item>Very dedicated and warm protectors, always ready to defend their loved ones.</item>
+        <item>Excellent administrators, unsurpassed at managing things – or people.</item>
+        <item>Extraordinarily caring, social and popular people, always eager to help.</item>
+        <item>Bold and practical experimenters, masters of all kinds of tools.</item>
+        <item>Flexible and charming artists, always ready to explore and experience something new.</item>
+        <item>Smart, energetic and very perceptive people, who truly enjoy living on the edge.</item>
+        <item>Spontaneous, energetic and enthusiastic people – life is never boring around them.</item>
     </string-array>
 </resources>

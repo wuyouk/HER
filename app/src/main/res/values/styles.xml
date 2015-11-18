@@ -15,4 +15,9 @@
         <item name="android:seekBarStyle">@android:style/Widget.Holo.SeekBar</item>
     </style>
 
+    <style name="spinnerStyleView"  parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+
 </resources>

@@ -11,7 +11,7 @@
     <color name="accentColor">#80D8FF</color>
     <color name="colorHighlight">#80D8FF</color>
     <color name="text">#000000</color>
-    <color name="FAFAFA">#FAFAFA</color>
+    <color name="FAFAFA">#000000</color>
     <color name="open">#30FF37</color>
     <color name="done">#9E9E9E</color>
 

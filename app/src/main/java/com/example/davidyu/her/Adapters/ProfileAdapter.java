@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.davidyu.her.Fragments.FirstProfileFragment;
+import com.example.davidyu.her.Fragments.ForthProfileFragment;
 import com.example.davidyu.her.Fragments.SecondProfileFragment;
 import com.example.davidyu.her.Fragments.ThirdProfileFragment;
 import com.example.davidyu.her.R;
@@ -17,6 +18,7 @@ public class ProfileAdapter extends FragmentPagerAdapter {
         super(fm);
         this.main=c;
         tabs=main.getResources().getStringArray(R.array.tabs);
+        
     }
 
 
@@ -28,7 +30,7 @@ public class ProfileAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class ProfileAdapter extends FragmentPagerAdapter {
         FirstProfileFragment fpf = FirstProfileFragment.getInstance(position);
         SecondProfileFragment spf = SecondProfileFragment.getInstance(position);
         ThirdProfileFragment tpf = ThirdProfileFragment.getInstance(position);
-
+        ForthProfileFragment frpf = ForthProfileFragment.getInstance(position);
 
         if (position == 0)
             return fpf;
@@ -44,6 +46,8 @@ public class ProfileAdapter extends FragmentPagerAdapter {
             return spf;
         else if (position == 2)
             return tpf;
+        else if (position == 3)
+            return frpf;
         return null;
     }
 }
