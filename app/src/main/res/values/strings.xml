@@ -8,4 +8,5 @@
         <item>Second Profile</item>
         <item>Third Profile</item>
     </string-array>
+    <string name="transition_string">transition</string>
 </resources>
