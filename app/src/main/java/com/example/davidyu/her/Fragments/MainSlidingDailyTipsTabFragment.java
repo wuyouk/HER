@@ -74,14 +74,13 @@ public class MainSlidingDailyTipsTabFragment extends Fragment implements Updatea
     @Override
     public void onResume() {
         super.onResume();
+        getTips();
         updateUI();
     }
 
     public void updateUI(){
 
         tipList = Singleton.getTipList();
-
-
 
         if(adapter==null){
             adapter = new TipsRecyclerViewAdapter(tipList, getActivity());

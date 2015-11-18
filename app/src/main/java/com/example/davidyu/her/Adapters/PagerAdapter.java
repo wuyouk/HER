@@ -20,7 +20,7 @@ import com.example.davidyu.her.Fragments.MainSlidingTimelineTabFragment;
 
 import com.example.davidyu.her.R;
 
-public class PagerAdapter extends FragmentPagerAdapter {
+public class PagerAdapter extends FragmentStatePagerAdapter {
     protected Context main;
 
     MainSlidingDailyTipsTabFragment mst0;

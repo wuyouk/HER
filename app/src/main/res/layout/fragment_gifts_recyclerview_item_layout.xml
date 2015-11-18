@@ -15,27 +15,27 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tipIcon"/>
+            android:id="@+id/giftIcon"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toRightOf="@id/tipIcon"
+            android:layout_toRightOf="@id/giftIcon"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tipName"
+                android:id="@+id/giftName"
                 android:text="Name"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tipsDescription"
+                android:id="@+id/giftDescription"
                 android:maxLines="1"
                 android:text="Quantity"
                 android:ellipsize="end"
