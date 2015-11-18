@@ -2,18 +2,22 @@ package com.example.davidyu.her.Activities;
 
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.davidyu.her.R;
 import com.example.davidyu.her.Singleton;
 
 /**
- * Created by r on 11/19/2015.
+ * Class to show the details of the tips
  */
 public class MoreTipsActivity extends AppCompatActivity {
 
@@ -32,6 +36,7 @@ public class MoreTipsActivity extends AppCompatActivity {
     ColorDrawable mBackground;
 
     //private ShadowLayout mShadowLayout;
+    private LinearLayout topLevelLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +44,31 @@ public class MoreTipsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_more_tips);
 
+        topLevelLayout = (LinearLayout) findViewById(R.id.topLevelLayout);
+
         imageView = (ImageView) findViewById(R.id.testImage);
         imageView.setImageBitmap(Singleton.getBitmap());
 
+        mBackground = new ColorDrawable(Color.BLACK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            topLevelLayout.setBackground(mBackground);
+        }
 
-
+        //launching from daily tips fragment
         if (savedInstanceState == null){
             ViewTreeObserver observer = imageView.getViewTreeObserver();
 
+            //before anything is drawn onto the screen
             observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
 
                     imageView.getViewTreeObserver().removeOnPreDrawListener(this);
 
+                    //get previous image screen location
                     screenLocation = Singleton.getScreenLocation();
 
+                    //get previous image size
                     int[] size = new int[2];
                     size = Singleton.getSize();
 
@@ -78,6 +92,7 @@ public class MoreTipsActivity extends AppCompatActivity {
         }
     }
 
+    //make image zoom in
     public void runEnterAnimation() {
         final long duration = (long) (ANIM_DURATION * 1);
 
@@ -98,19 +113,7 @@ public class MoreTipsActivity extends AppCompatActivity {
         imageView.animate().setDuration(duration).
                 scaleX(1).scaleY(1).
                 translationX(0).translationY(0).
-                setInterpolator(sDecelerator).
-                withEndAction(new Runnable() {
-                    public void run() {
-                        // Animate the description in after the image animation
-                        // is done. Slide and fade the text in from underneath
-                        // the picture.
-                        /*
-                        mTextView.setTranslationY(-mTextView.getHeight());
-                        mTextView.animate().setDuration(duration/2).
-                                translationY(0).alpha(1).
-                                setInterpolator(sDecelerator);*/
-                    }
-                });
+                setInterpolator(sDecelerator);
 
         // Fade in the black background
         ObjectAnimator bgAnim = ObjectAnimator.ofInt(mBackground, "alpha", 0, 255);
@@ -122,5 +125,90 @@ public class MoreTipsActivity extends AppCompatActivity {
         ObjectAnimator shadowAnim = ObjectAnimator.ofFloat(mShadowLayout, "shadowDepth", 0, 1);
         shadowAnim.setDuration(duration);
         shadowAnim.start();*/
+    }
+
+    public void runExitAnimation(final Runnable endAction) {
+        //final long duration = (long) (ANIM_DURATION * ActivityAnimations.sAnimatorScale);
+        final long duration = (long) (ANIM_DURATION * 1);
+
+        // No need to set initial values for the reverse animation; the image is at the
+        // starting size/location that we want to start from. Just animate to the
+        // thumbnail size/location that we retrieved earlier
+
+        // Caveat: configuration change invalidates thumbnail positions; just animate
+        // the scale around the center. Also, fade it out since it won't match up with
+        // whatever's actually in the center
+        final boolean fadeOut;
+        /*
+        if (getResources().getConfiguration().orientation != mOriginalOrientation) {
+            mImageView.setPivotX(mImageView.getWidth() / 2);
+            mImageView.setPivotY(mImageView.getHeight() / 2);
+            mLeftDelta = 0;
+            mTopDelta = 0;
+            fadeOut = true;
+        } else {
+            fadeOut = false;
+        }*/
+        fadeOut = true;
+
+        /* First, slide/fade text out of the way
+        mTextView.animate().translationY(-mTextView.getHeight()).alpha(0).
+                setDuration(duration/2).setInterpolator(sAccelerator).
+                withEndAction(new Runnable() {
+                    public void run() {
+
+
+                        /* Animate the shadow of the image
+                        ObjectAnimator shadowAnim = ObjectAnimator.ofFloat(mShadowLayout,
+                                "shadowDepth", 1, 0);
+                        shadowAnim.setDuration(duration);
+                        shadowAnim.start();*
+
+
+                    }
+                });*/
+
+        // Fade out background
+        ObjectAnimator bgAnim = ObjectAnimator.ofInt(mBackground, "alpha", 0);
+        bgAnim.setDuration(duration);
+        bgAnim.start();
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            imageView.animate().setDuration(duration).
+                    scaleX(mWidthScale).scaleY(mHeightScale).
+                    translationX(mLeftDelta).translationY(mTopDelta).
+                    setInterpolator(sDecelerator).
+                    withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    });
+
+            //finish();
+        }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        runExitAnimation(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        overridePendingTransition(0,0);
     }
 }

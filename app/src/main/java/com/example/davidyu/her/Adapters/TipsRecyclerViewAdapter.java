@@ -107,25 +107,26 @@ public class TipsRecyclerViewAdapter extends RecyclerView.Adapter<TipsRecyclerVi
         @Override
         public void onClick(View v) {
 
+            //get image that is clicked on inside cardview
             ImageView imageView = (ImageView) v.findViewById(R.id.tipIcon);
-
             Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-
             Singleton.setBitmap(bitmap);
 
-            //get location in screen
+            //get image location on screen
             int[] screenLocation = new int[2];
-            v.getLocationOnScreen(screenLocation);
+            //v.getLocationOnScreen(screenLocation);
+            imageView.getLocationOnScreen(screenLocation);
             Singleton.setScreenLocation(screenLocation);
 
+            //get dimensions of the image
             int[] size = new int[2];
-            size[0] = v.getWidth();
-            size[1] = v.getHeight();
+            size[0] = imageView.getWidth();
+            size[1] = imageView.getHeight();
             Singleton.setSize(size);
 
             Intent i = new Intent(context, MoreTipsActivity.class);
             context.startActivity(i);
-
+            //overrid default animations
             ((MainActivity)context).overridePendingTransition(0, 0);
 
 
