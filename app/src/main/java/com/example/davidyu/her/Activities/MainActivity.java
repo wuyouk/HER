@@ -1,5 +1,6 @@
 package com.example.davidyu.her.Activities;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.davidyu.her.Adapters.PagerAdapter;
+import com.example.davidyu.her.Authenticator.LoginActivity;
+import com.example.davidyu.her.Authenticator.UserLocalStore;
+import com.example.davidyu.her.Fragments.MainSlidingDailyTipsTabFragment;
 import com.example.davidyu.her.Fragments.NavigationDrawerFragment;
 import com.example.davidyu.her.R;
 import com.example.davidyu.her.Views.SlidingTabLayout;
@@ -19,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
     protected Toolbar toolbar;
     ViewPager pager;
     SlidingTabLayout tabs;
+    UserLocalStore userLocalStore;
     //TODO: set up pull down to refresh function
 
     @Override
@@ -44,6 +49,8 @@ public class MainActivity extends ActionBarActivity {
         });
         tabs.setBackgroundColor(getResources().getColor(R.color.primaryColorLight));
         tabs.setViewPager(pager);
+
+        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
@@ -66,5 +73,27 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //check if user is logged in
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (authenticate() == false){
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+    }
+
+    //helper function to check if user is logged in
+    private boolean authenticate(){
+        return userLocalStore.isUserLoggedIn();
+    }
+
+    public void updateTipList(){
+        pager.setCurrentItem(0);
+
+
     }
 }
