@@ -107,6 +107,9 @@ public class TipsRecyclerViewAdapter extends RecyclerView.Adapter<TipsRecyclerVi
         @Override
         public void onClick(View v) {
 
+            //get text of tip
+            TextView textView = (TextView) v.findViewById(R.id.tipsDescription);
+
             //get image that is clicked on inside cardview
             ImageView imageView = (ImageView) v.findViewById(R.id.tipIcon);
             Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -123,6 +126,9 @@ public class TipsRecyclerViewAdapter extends RecyclerView.Adapter<TipsRecyclerVi
             size[0] = imageView.getWidth();
             size[1] = imageView.getHeight();
             Singleton.setSize(size);
+
+            //save current text
+            Singleton.setTipsText(textView.getText().toString());
 
             Intent i = new Intent(context, MoreTipsActivity.class);
             context.startActivity(i);

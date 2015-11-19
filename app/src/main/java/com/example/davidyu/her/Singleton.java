@@ -17,6 +17,15 @@ public class Singleton {
     private static List<Gift> giftList = new ArrayList<>();
     private static int[] screenLocation = new int[2];
     private static int[] size = new int[2];
+    private static String tipsText;
+
+    public static String getTipsText() {
+        return tipsText;
+    }
+
+    public static void setTipsText(String tipsText) {
+        Singleton.tipsText = tipsText;
+    }
 
     public static int[] getSize() {
         return size;

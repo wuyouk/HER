@@ -9,9 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.davidyu.her.R;
 import com.example.davidyu.her.Singleton;
@@ -27,11 +29,13 @@ public class MoreTipsActivity extends AppCompatActivity {
     float mWidthScale;
     float mHeightScale;
 
-    private static final int ANIM_DURATION = 500;
+    private static final int ANIM_DURATION = 500; //length of the animation
 
     private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
+    private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
 
     private ImageView imageView;
+    private TextView textView;
 
     ColorDrawable mBackground;
 
@@ -46,10 +50,14 @@ public class MoreTipsActivity extends AppCompatActivity {
 
         topLevelLayout = (LinearLayout) findViewById(R.id.topLevelLayout);
 
+        textView = (TextView) findViewById(R.id.moreDetailsTextView);
+        textView.setText(Singleton.getTipsText());
+
         imageView = (ImageView) findViewById(R.id.testImage);
         imageView.setImageBitmap(Singleton.getBitmap());
 
         mBackground = new ColorDrawable(Color.BLACK);
+        //mBackground = new ColorDrawable(getColor(R.color.primaryColorLight));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             topLevelLayout.setBackground(mBackground);
         }
@@ -107,13 +115,21 @@ public class MoreTipsActivity extends AppCompatActivity {
         imageView.setTranslationY(mTopDelta);
 
         // We'll fade the text in later
-        //mTextView.setAlpha(0);
+        textView.setAlpha(0);
 
         // Animate scale and translation to go from thumbnail to full size
         imageView.animate().setDuration(duration).
                 scaleX(1).scaleY(1).
                 translationX(0).translationY(0).
-                setInterpolator(sDecelerator);
+                setInterpolator(sDecelerator).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                textView.setTranslationY(-textView.getHeight());
+                textView.animate().setDuration(duration/2).
+                        translationY(0).alpha(1).
+                        setInterpolator(sAccelerator);
+            }
+        });
 
         // Fade in the black background
         ObjectAnimator bgAnim = ObjectAnimator.ofInt(mBackground, "alpha", 0, 255);
@@ -151,51 +167,45 @@ public class MoreTipsActivity extends AppCompatActivity {
         }*/
         fadeOut = true;
 
-        /* First, slide/fade text out of the way
-        mTextView.animate().translationY(-mTextView.getHeight()).alpha(0).
-                setDuration(duration/2).setInterpolator(sAccelerator).
-                withEndAction(new Runnable() {
-                    public void run() {
+         //First, slide/fade text out of the way
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            textView.animate().translationY(-textView.getHeight()).alpha(0).
+                    setDuration(duration / 2).setInterpolator(sAccelerator).
+                    withEndAction(new Runnable() {
+                        public void run() {
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                imageView.animate().setDuration(duration).
+                                        scaleX(mWidthScale).scaleY(mHeightScale).
+                                        translationX(mLeftDelta).translationY(mTopDelta).
+                                        setInterpolator(sDecelerator).
+                                        withEndAction(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                finish();
+                                            }
+                                        });
+                            }
+
+                            /* Animate the shadow of the image
+                            ObjectAnimator shadowAnim = ObjectAnimator.ofFloat(mShadowLayout,
+                                    "shadowDepth", 1, 0);
+                            shadowAnim.setDuration(duration);
+                            shadowAnim.start();*/
 
 
-                        /* Animate the shadow of the image
-                        ObjectAnimator shadowAnim = ObjectAnimator.ofFloat(mShadowLayout,
-                                "shadowDepth", 1, 0);
-                        shadowAnim.setDuration(duration);
-                        shadowAnim.start();*
-
-
-                    }
-                });*/
+                        }
+                    });
+        }
 
         // Fade out background
         ObjectAnimator bgAnim = ObjectAnimator.ofInt(mBackground, "alpha", 0);
         bgAnim.setDuration(duration);
         bgAnim.start();
-
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            imageView.animate().setDuration(duration).
-                    scaleX(mWidthScale).scaleY(mHeightScale).
-                    translationX(mLeftDelta).translationY(mTopDelta).
-                    setInterpolator(sDecelerator).
-                    withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            finish();
-                        }
-                    });
-
-            //finish();
-        }
-
-
     }
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
 
         runExitAnimation(new Runnable() {
             @Override
