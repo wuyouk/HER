@@ -146,6 +146,7 @@ public class TimeLineAdapter extends BaseExpandableListAdapter {
                 public void onClick(View view) {
                     toast("click trash");
                     //do something
+
                 }
             });
             convertView.findViewById(R.id.item_surface).setOnClickListener(new View.OnClickListener() {
