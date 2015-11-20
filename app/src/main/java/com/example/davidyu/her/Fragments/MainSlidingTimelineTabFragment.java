@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by David Yu on 6/5/2015.
+ * Modified by Cao Chao on 16/11/2015
  */
 public class MainSlidingTimelineTabFragment extends Fragment {
 
@@ -29,8 +30,6 @@ public class MainSlidingTimelineTabFragment extends Fragment {
     private ExpandableListView expandableListView;
     private List<GroupEntity> lists;
     private TimeLineAdapter adapter;
-
-
 
 
     public static MainSlidingTimelineTabFragment getInstance(int position){
@@ -68,11 +67,11 @@ public class MainSlidingTimelineTabFragment extends Fragment {
     private List<GroupEntity> initList() {
 
         List<GroupEntity> groupList;
-        //测试数据
-        String[] groupArray = new String[] { "9月1日","9月2日", "9月3日"};
+        //test
+        String[] groupArray = new String[] { "Nov 1","Nov 2", "Nov 3"};
         String[][] childTimeArray = new String[][] {
-                { "测试数据1",  "测试数据2", "测试数据3" },
-                {  "测试数据4"}, { "测试数据5", "测试数据6" } };
+                { "test1",  "test2", "test3" },
+                {  "test4"}, { "test5", "test6" } };
         groupList = new ArrayList<GroupEntity>();
         for (int i = 0; i < groupArray.length; i++){
             GroupEntity groupEntity = new GroupEntity(groupArray[i]);
