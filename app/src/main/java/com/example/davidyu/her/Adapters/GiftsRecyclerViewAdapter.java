@@ -1,6 +1,9 @@
 package com.example.davidyu.her.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.davidyu.her.Activities.MainActivity;
+import com.example.davidyu.her.Activities.MoreTipsActivity;
 import com.example.davidyu.her.Model.Gift;
 import com.example.davidyu.her.Model.Tip;
 import com.example.davidyu.her.R;
+import com.example.davidyu.her.Singleton;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -76,7 +82,7 @@ public class GiftsRecyclerViewAdapter extends RecyclerView.Adapter<GiftsRecycler
             // bind imageview using picasso library
             Picasso.with(context)
                     .load(gift.getIcon())
-                    .resize(200,200)
+                    //.resize(200,200)
                     //.placeholder(add drawable) //placeholder image for empty slots
                     //.error(add drawable) //image to use when download fails
                     .into(giftIcon);
@@ -88,7 +94,34 @@ public class GiftsRecyclerViewAdapter extends RecyclerView.Adapter<GiftsRecycler
         //handle clicks for each cell inside recycler view
         @Override
         public void onClick(View v) {
-            //TODO handle click to show detailed description of tip
+            //get text of gift
+            TextView textView = (TextView) v.findViewById(R.id.giftDescription);
+
+            //get image that is clicked on inside cardview
+            ImageView imageView = (ImageView) v.findViewById(R.id.giftIcon);
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Singleton.setBitmap(bitmap);
+
+            //get image location on screen
+            int[] screenLocation = new int[2];
+            //v.getLocationOnScreen(screenLocation);
+            imageView.getLocationOnScreen(screenLocation);
+            Singleton.setScreenLocation(screenLocation);
+
+            //get dimensions of the image
+            int[] size = new int[2];
+            size[0] = imageView.getWidth();
+            size[1] = imageView.getHeight();
+            Singleton.setSize(size);
+
+            //save current text
+            Singleton.setTipsText(textView.getText().toString());
+
+            Intent i = new Intent(context, MoreTipsActivity.class);
+            context.startActivity(i);
+
+            //overrid default animations
+            ((MainActivity)context).overridePendingTransition(0, 0);
         }
     }
 

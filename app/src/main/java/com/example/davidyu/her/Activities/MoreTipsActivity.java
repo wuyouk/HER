@@ -56,8 +56,8 @@ public class MoreTipsActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.testImage);
         imageView.setImageBitmap(Singleton.getBitmap());
 
-        mBackground = new ColorDrawable(Color.BLACK);
-        //mBackground = new ColorDrawable(getColor(R.color.primaryColorLight));
+        //mBackground = new ColorDrawable(Color.BLACK);
+        mBackground = new ColorDrawable(getResources().getColor(R.color.primaryColorLight));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             topLevelLayout.setBackground(mBackground);
         }

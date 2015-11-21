@@ -132,28 +132,10 @@ public class TipsRecyclerViewAdapter extends RecyclerView.Adapter<TipsRecyclerVi
 
             Intent i = new Intent(context, MoreTipsActivity.class);
             context.startActivity(i);
+
             //overrid default animations
             ((MainActivity)context).overridePendingTransition(0, 0);
 
-
-            /*
-            //TODO handle click to show detailed description of tip
-            Intent i = new Intent(context, MoreTipsActivity.class);
-
-            String transitionName = context.getString(R.string.transition_string);
-
-            //View viewStart = v.findViewById(R.id.tipIcon);
-
-            ImageView imageView = (ImageView) v.findViewById(R.id.tipIcon);
-
-
-
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation((Activity) context, imageView, transitionName);
-
-            //context.startActivity(i);
-
-            ActivityCompat.startActivity((Activity) context, i, optionsCompat.toBundle());*/
         }
     }
 
