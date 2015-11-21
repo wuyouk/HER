@@ -40,6 +40,10 @@
             android:label="@string/app_name" >
         </activity>
 
+        <activity android:name=".Activities.MoreTipsActivity"
+            android:label="@string/app_name"
+            android:theme="@style/transparent"/>
+
     </application>
 
 </manifest>

@@ -60,4 +60,5 @@
         <item>Smart, energetic and very perceptive people, who truly enjoy living on the edge.</item>
         <item>Spontaneous, energetic and enthusiastic people – life is never boring around them.</item>
     </string-array>
+    <string name="transition_string">transition</string>
 </resources>
