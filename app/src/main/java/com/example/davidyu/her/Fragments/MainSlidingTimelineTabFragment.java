@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class MainSlidingTimelineTabFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "I m clicked!!!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getApplicationContext(), "I m clicked!!!", Toast.LENGTH_SHORT).show();
                 // get prompts.xml view
                 LayoutInflater li = LayoutInflater.from(getActivity().getApplicationContext());
                 View promptsView = li.inflate(R.layout.popup, null);
@@ -129,10 +130,10 @@ public class MainSlidingTimelineTabFragment extends Fragment {
 
         List<GroupEntity> groupList;
         //test
-        String[] groupArray = new String[]{"Nov 1", "Nov 2", "Nov 3"};
+        String[] groupArray = new String[]{"Nov 1, 2015", "Nov 2, 2015", "Nov 3, 2015"};
         String[][] childTimeArray = new String[][]{
-                {"test1", "test2", "test3"},
-                {"test4"}, {"test5", "test6"}};
+                {"Watch Martian", "Go to su canteen", "Climb TaiPing Mountain"},
+                {"Go to Saiwang"}, {"Go to Lan Kwai Fong", "Open room"}};
         groupList = new ArrayList<GroupEntity>();
         for (int i = 0; i < groupArray.length; i++) {
             GroupEntity groupEntity = new GroupEntity(groupArray[i]);
@@ -158,7 +159,34 @@ public class MainSlidingTimelineTabFragment extends Fragment {
 
     private void addChild(String event)
     {
-        //expandableListView.setAdapter();
+        if(adapter.getGroupCount() == 0)
+        {
+            adapter.AddGroup(df.format(new Date()));
+            adapter.getGroupEntity(0).addChild(event);
+            adapter.notifyDataSetChanged();
+        }
+        else
+        {
+            if(adapter.getGroupEntity(adapter.getGroupCount() - 1 ).getGroupName().equals(df.format(new Date())))
+            {
+                adapter.getGroupEntity(adapter.getGroupCount() - 1).addChild(event);
+                adapter.notifyDataSetChanged();
+            }
+            else
+            {
+                adapter.AddGroup(df.format(new Date()));
+                Log.d("add", event);
+                adapter.getGroupEntity(adapter.getGroupCount() - 1).addChild(event);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+
+
+
+
+
+       /* //expandableListView.setAdapter();
         ChildEntity childEntity  = new ChildEntity(event);
         List<ChildEntity> childList = lists.get(lists.size() - 1).getChildEntities();
         childList.add(childEntity);
@@ -169,7 +197,7 @@ public class MainSlidingTimelineTabFragment extends Fragment {
         for (int i = 0; i < groupCount; i++) {
             expandableListView.expandGroup(i);
         }
-
+        */
 
     }
 

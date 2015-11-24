@@ -1,10 +1,14 @@
 package com.example.davidyu.her.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,6 +119,8 @@ public class TimeLineAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
+        final int groupPos = groupPosition;
+        final int childPos = childPosition;
         ChildViewHolder viewHolder = null;
         final ChildEntity entity = (ChildEntity) getChild(groupPosition,
                 childPosition);
@@ -128,23 +134,48 @@ public class TimeLineAdapter extends BaseExpandableListAdapter {
             viewHolder.swipeLayout = (SwipeLayout) convertView.findViewById(R.id.sample);
             viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewWithTag("Bottom2"));
-            viewHolder.iv_star= (ImageView) convertView.findViewById(R.id.star);
             viewHolder.iv_trash= (ImageView) convertView.findViewById(R.id.trash);
             convertView.setTag(viewHolder);
         }
         if (entity!=null) {
             viewHolder.childTitle.setText(entity.getChildTitle());
-            viewHolder.iv_star.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toast("click star");
-                    //do something
-                }
-            });
+
             viewHolder.iv_trash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    toast("click trash");
+                    toast("Delete!");
+                    LayoutInflater li = LayoutInflater.from(context);
+                    View promptsView = li.inflate(R.layout.delete_confirm, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            context);
+
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
+
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            //delete child
+                                            DeleteChild(groupPos, childPos);
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
                     //do something
 
                 }
@@ -177,5 +208,23 @@ public class TimeLineAdapter extends BaseExpandableListAdapter {
     private void toast(String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
+    }
+    private void DeleteChild(int groupPosition, int childPosition)
+    {
+        Log.d("delete", "g " + groupPosition + " c " + childPosition);
+        groupList.get(groupPosition).removeChild(childPosition);
+        if(groupList.get(groupPosition).getChildEntities().size() == 0)
+        {
+            groupList.remove(groupPosition);
+        }
+        this.notifyDataSetChanged();
+    }
+    public void AddGroup(String name)
+    {
+        groupList.add(new GroupEntity(name));
+    }
+    public GroupEntity getGroupEntity(int groupPosition)
+    {
+        return groupList.get(groupPosition);
     }
 }

@@ -14,14 +14,7 @@
             android:orientation="horizontal"
             android:tag="Bottom2">
 
-            <ImageView
-                android:id="@+id/star"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:background="#4cd964"
-                android:paddingLeft="22dp"
-                android:paddingRight="22dp"
-                android:src="@mipmap/star" />
+
             <ImageView
                 android:id="@+id/trash"
                 android:layout_width="70dp"
