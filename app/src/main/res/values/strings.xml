@@ -60,5 +60,54 @@
         <item>Smart, energetic and very perceptive people, who truly enjoy living on the edge.</item>
         <item>Spontaneous, energetic and enthusiastic people – life is never boring around them.</item>
     </string-array>
+    <string-array name="hobbies">
+        <item>SPORTS</item>
+        <item>Badminton</item>
+        <item>Swimming</item>
+        <item>Yoga</item>
+        <item>Jog</item>
+        <item>Hiking</item>
+        <item>Ice skating</item>
+        <item>Gymnastics</item>
+        <item>Tennis</item>
+        <item>Hiking</item>
+        <item>Camping</item>
+        <item>LIFESTYLE-RELATED</item>
+        <item>Traveling and exploration</item>
+        <item>Shopping</item>
+        <item>Food tasting</item>
+        <item>Pet training and grooming</item>
+        <item>Watching movie</item>
+        <item>Concert and theatre</item>
+        <item>Wine tasting</item>
+        <item>Reading</item>
+        <item>Photography</item>
+        <item>Computer games</item>
+        <item>Financial Market</item>
+        <item>Beauty</item>
+        <item>CREATION</item>
+        <item>Cooking</item>
+        <item>Painting</item>
+        <item>Creative writing</item>
+        <item>Graffiti art</item>
+        <item>Dancing and choreography</item>
+        <item>Singing and composing</item>
+        <item>DIY</item>
+        <item>Jewelry-making</item>
+        <item>Interior decorating</item>
+        <item>Gardening</item>
+    </string-array>
+    <string-array name="relations">
+        <item>Before meeting</item>
+        <item>Getting to know her</item>
+        <item>Getting close / Dating</item>
+        <item>Commitment</item>
+    </string-array>
+    <string-array name="r_pic">
+        <item>r1</item>
+        <item>r2</item>
+        <item>r3</item>
+        <item>r4</item>
+    </string-array>
     <string name="transition_string">transition</string>
 </resources>
