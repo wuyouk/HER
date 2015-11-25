@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/profile">
+        android:background="@drawable/login_background">
 
 
 
@@ -27,12 +27,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="H   E   R"
+            android:text="H  E  R"
             android:id="@+id/profileText"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textColor="#fdfbfc"
+            android:textColor="#c8e9fb"
             android:focusableInTouchMode="false"
             android:enabled="false"
             android:textSize="75dp" />
