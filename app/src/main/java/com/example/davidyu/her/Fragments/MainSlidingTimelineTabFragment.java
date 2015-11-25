@@ -18,17 +18,32 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.example.davidyu.her.Adapters.TimeLineAdapter;
+import com.example.davidyu.her.Adapters.TipsRecyclerViewAdapter;
+import com.example.davidyu.her.Authenticator.CustomRequest;
+import com.example.davidyu.her.Model.Tip;
 import com.example.davidyu.her.R;
+import com.example.davidyu.her.Singleton;
 import com.example.davidyu.her.models.ChildEntity;
 import com.example.davidyu.her.models.GroupEntity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by David Yu on 6/5/2015.
@@ -87,9 +102,10 @@ public class MainSlidingTimelineTabFragment extends Fragment {
                                         // get user input and set it to result
                                         // edit text
                                         //result.setText(userInput.getText());
-                                        Toast.makeText(getActivity().getApplicationContext(), userInput.getText(), Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getActivity().getApplicationContext(), userInput.getText(), Toast.LENGTH_SHORT).show();
                                         //addGroup(df.format(new Date()));
-                                        addChild(userInput.getText().toString());
+                                        updateTimeline(userInput.getText().toString());
+                                        //addChild(userInput.getText().toString());
                                     }
                                 })
                         .setNegativeButton("Cancel",
@@ -112,8 +128,16 @@ public class MainSlidingTimelineTabFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getTimeline();
+    }
+
     private void initView() {
-        lists = initList();
+        lists = new ArrayList<>();
+        //lists = initList();
         adapter = new TimeLineAdapter(this.getContext(), lists);
         expandableListView.setAdapter(adapter);
         expandableListView.setGroupIndicator(null); // 去掉默认带的箭头
@@ -126,79 +150,136 @@ public class MainSlidingTimelineTabFragment extends Fragment {
 
     }
 
-    private List<GroupEntity> initList() {
 
-        List<GroupEntity> groupList;
-        //test
-        String[] groupArray = new String[]{"Nov 1, 2015", "Nov 2, 2015", "Nov 3, 2015"};
-        String[][] childTimeArray = new String[][]{
-                {"Watch Martian", "Go to su canteen", "Climb TaiPing Mountain"},
-                {"Go to Saiwang"}, {"Go to Lan Kwai Fong", "Open room"}};
-        groupList = new ArrayList<GroupEntity>();
-        for (int i = 0; i < groupArray.length; i++) {
-            GroupEntity groupEntity = new GroupEntity(groupArray[i]);
-            List<ChildEntity> childList = new ArrayList<ChildEntity>();
-            for (int j = 0; j < childTimeArray[i].length; j++) {
-                ChildEntity childStatusEntity = new ChildEntity(childTimeArray[i][j]);
-                childList.add(childStatusEntity);
-            }
-            groupEntity.setChildEntities(childList);
-            groupList.add(groupEntity);
-        }
-        return groupList;
-    }
+    public void updateUI(){
 
-    private void addGroup(String date) {
+        lists = Singleton.getTimeline();
 
-        String group_name = date;
-        GroupEntity groupEntity = new GroupEntity(group_name);
-        lists.add(groupEntity);
-        adapter = new TimeLineAdapter(this.getContext(), lists);
-        expandableListView.setAdapter(adapter);
-    }
-
-    private void addChild(String event)
-    {
-        if(adapter.getGroupCount() == 0)
-        {
-            adapter.AddGroup(df.format(new Date()));
-            adapter.getGroupEntity(0).addChild(event);
+        if(adapter==null){
+            adapter = new TimeLineAdapter(this.getContext(), lists);
+            expandableListView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }else{
+            adapter.setGroupList(lists);
             adapter.notifyDataSetChanged();
         }
-        else
-        {
-            if(adapter.getGroupEntity(adapter.getGroupCount() - 1 ).getGroupName().equals(df.format(new Date())))
-            {
-                adapter.getGroupEntity(adapter.getGroupCount() - 1).addChild(event);
-                adapter.notifyDataSetChanged();
-            }
-            else
-            {
-                adapter.AddGroup(df.format(new Date()));
-                Log.d("add", event);
-                adapter.getGroupEntity(adapter.getGroupCount() - 1).addChild(event);
-                adapter.notifyDataSetChanged();
-            }
-        }
+    }
 
+    //helper function to get timeline from server
+    private void getTimeline(){
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
 
+        //parameters to be passed into volley POST request
 
+        Map<String,String> params = new HashMap<>();
+        /*params.put("username", username);
+        params.put("password", password);*/
 
+        CustomRequest jsonObjectRequest = new CustomRequest(Request.Method.POST,
+                "http://i.cs.hku.hk/~sclee/android/" + "getTimeLine.php",
+                params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
+                        Log.e("volley", "success");
 
-       /* //expandableListView.setAdapter();
-        ChildEntity childEntity  = new ChildEntity(event);
-        List<ChildEntity> childList = lists.get(lists.size() - 1).getChildEntities();
-        childList.add(childEntity);
-        lists.get(lists.size() - 1).setChildEntities(childList);
-        adapter = new TimeLineAdapter(this.getContext(), lists);
-        expandableListView.setAdapter(adapter);
-        int groupCount = expandableListView.getCount();
-        for (int i = 0; i < groupCount; i++) {
-            expandableListView.expandGroup(i);
-        }
-        */
+                        List<Tip> tipList = new ArrayList<>();
 
+                        List<GroupEntity> groupEntities = new ArrayList<>();
+
+                        JSONArray jsonArray;
+                        JSONObject jsonObject;
+                        String name = "", text = "", image = "", date = "";
+
+                        try {
+                            jsonArray = response.getJSONArray("timeline");
+
+                            //loop through json array
+                            for(int i=0; i<jsonArray.length(); i++){
+                                jsonObject = jsonArray.getJSONObject(i);
+
+                                date = jsonObject.getString("date");
+                                GroupEntity dateGroupEntity = new GroupEntity(date);
+
+                                /**
+                                 * get data for each date
+                                 */
+                                JSONArray jsonEntryArray = jsonObject.getJSONArray("entry");
+
+                                List<ChildEntity> childEntities = new ArrayList<>();
+
+                                for (int j=0; j<jsonEntryArray.length(); j++){
+                                    text = jsonEntryArray.getJSONObject(j).getString("text");
+
+                                    ChildEntity childEntity = new ChildEntity(text);
+
+                                    childEntities.add(childEntity);
+
+                                }
+
+                                dateGroupEntity.setChildEntities(childEntities);
+
+                                groupEntities.add(dateGroupEntity);
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        Singleton.getInstance().setTimeline(groupEntities);
+
+                        updateUI();
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("volley", "failure");
+                        //progressDialog.dismiss();
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
+    }
+
+    //helper function to update timeline
+    private void updateTimeline(String message){
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+        //parameters to be passed into volley POST request
+
+        Map<String,String> params = new HashMap<>();
+        params.put("message", message);
+        /*params.put("username", username);
+        params.put("password", password);*/
+
+        CustomRequest jsonObjectRequest = new CustomRequest(Request.Method.POST,
+                "http://i.cs.hku.hk/~sclee/android/" + "addTimeLine.php",
+                params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.e("volley", "success");
+
+                        getTimeline();
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("volley", "failure");
+                        //progressDialog.dismiss();
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
     }
 
 
