@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FAFAFA"
+    android:background="@android:color/transparent"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2196F3"
+        android:background="@android:color/transparent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
@@ -25,9 +25,10 @@
             android:layout_alignParentLeft="true"
             android:text="a hobby"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:layout_marginTop="10dp"
-            android:fontFamily="Roboto Light"/>
+            android:fontFamily="Roboto Light"
+            android:background="@android:color/transparent"/>
 
         <CheckBox
             android:id="@+id/hCheckBox"
