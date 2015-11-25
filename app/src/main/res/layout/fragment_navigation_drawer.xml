@@ -12,12 +12,12 @@
         android:layout_width="280dp"
         android:layout_height="150dp"
         android:id="@+id/banner_image"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/banner_image"
+        android:src="@drawable/banner"
         android:scaleType="centerCrop"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/ND_list2"
+        android:layout_alignStart="@+id/ND_list2" />
 
     <ListView
         android:layout_width="280dp"
@@ -25,7 +25,8 @@
         android:id="@+id/ND_list1"
         android:layout_below="@+id/banner_image"
         android:layout_alignRight="@+id/banner_image"
-        android:layout_alignEnd="@+id/banner_image" />
+        android:layout_alignEnd="@+id/banner_image"
+        android:background="#f999a6" />
 
     <ListView
         android:layout_marginTop="30dp"
