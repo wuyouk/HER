@@ -13,13 +13,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.example.davidyu.her.Authenticator.CustomRequest;
+import com.example.davidyu.her.Model.Tip;
 import com.example.davidyu.her.R;
+import com.example.davidyu.her.Singleton;
 import com.example.davidyu.her.models.ChildEntity;
 import com.example.davidyu.her.models.GroupEntity;
 
 import com.daimajia.swipe.SwipeLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -41,6 +56,10 @@ public class TimeLineAdapter extends BaseExpandableListAdapter {
         this.groupList = group_list;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setGroupList(List<GroupEntity> input){
+        this.groupList = input;
     }
 
     /**
@@ -162,6 +181,8 @@ public class TimeLineAdapter extends BaseExpandableListAdapter {
                                         public void onClick(DialogInterface dialog, int id) {
                                             //delete child
                                             DeleteChild(groupPos, childPos);
+
+                                            deleteTimeLine(entity.getChildTitle());
                                         }
                                     })
                             .setNegativeButton("Cancel",
@@ -189,6 +210,38 @@ public class TimeLineAdapter extends BaseExpandableListAdapter {
             });
         }
         return convertView;
+    }
+
+    private void deleteTimeLine(String message){
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        //parameters to be passed into volley POST request
+
+        Map<String,String> params = new HashMap<>();
+        params.put("message", message);
+        /*params.put("username", username);
+        params.put("password", password);*/
+
+        CustomRequest jsonObjectRequest = new CustomRequest(Request.Method.POST,
+                "http://i.cs.hku.hk/~sclee/android/" + "deleteTimeLine.php",
+                params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("volley", "failure");
+                        //progressDialog.dismiss();
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
     }
 
     @Override

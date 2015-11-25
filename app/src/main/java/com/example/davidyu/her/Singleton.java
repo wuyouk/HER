@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.example.davidyu.her.Model.Gift;
 import com.example.davidyu.her.Model.Tip;
+import com.example.davidyu.her.models.GroupEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,16 @@ public class Singleton {
 
     private static List<Tip> tipList = new ArrayList<>();
     private static List<Gift> giftList = new ArrayList<>();
+    private static List<GroupEntity> timeline = new ArrayList<>();
+
+    public static List<GroupEntity> getTimeline() {
+        return timeline;
+    }
+
+    public static void setTimeline(List<GroupEntity> timeline) {
+        Singleton.timeline = timeline;
+    }
+
     private static int[] screenLocation = new int[2];
     private static int[] size = new int[2];
     private static String tipsText;

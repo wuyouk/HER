@@ -70,7 +70,7 @@ public class ServerRequest {
                     public void onResponse(JSONObject response) {
 
                         JSONArray jsonArray;
-                        JSONObject jsonObject;
+                        JSONObject jsonObject = null;
                         String token = "", name = "";
 
                         try {
@@ -83,20 +83,38 @@ public class ServerRequest {
                             e.printStackTrace();
                         }
 
-                        Log.e("volley", "success");
-                        Log.e("response token", token);
+                        Log.e("volley login", "success");
                         progressDialog.dismiss();
 
-                        //save user credentials
-                        User user = new User(username, password, token);
-                        userLocalStore.storeUserData(user);
-                        userLocalStore.setUserLoggedIn(true);
+                        if (token!=""){
+                            //save user credentials
+                            User user = new User(username, password, token);
+                            userLocalStore.storeUserData(user);
+                            userLocalStore.setUserLoggedIn(true);
 
-                        //remove from backstack
-                        Intent i = new Intent(context, MainActivity.class);
-                        i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        context.startActivity(i);
+                            //remove from backstack
+                            Intent i = new Intent(context, MainActivity.class);
+                            i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            context.startActivity(i);
+                        }else{
+                            try {
+                                String message = jsonObject.getString("message");
 
+                                //if user has not registered we go to the registration page
+                                if (message.equals("This username has not been registered yet")){
+                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(context, RegisterActivity.class);
+                                    i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    context.startActivity(i);
+                                }
+                                else {
+                                    //we tell the user that the username and password do not match
+                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 },
 
