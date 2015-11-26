@@ -109,6 +109,7 @@ public class MainSlidingGiftsTabFragment extends Fragment {
 
         //parameters to be passed into volley POST request
         Map<String,String> params = new HashMap<>();
+        params.put("userID", Singleton.getUserID());
         /*params.put("username", username);
         params.put("password", password);*/
 

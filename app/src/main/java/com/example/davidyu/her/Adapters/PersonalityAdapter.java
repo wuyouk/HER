@@ -70,7 +70,9 @@ public class PersonalityAdapter extends ArrayAdapter<String> {
                         UserProfile u = Singleton.getUserInstance();
                         u.setHerPersonality(p);
 
-                        ((ProfileActivity)context).goToThirdFragment();
+                        Singleton.setCurrentPersonality(p);
+
+                        ((ProfileActivity) context).goToThirdFragment();
                         dialog.dismiss();
                     }
                 });

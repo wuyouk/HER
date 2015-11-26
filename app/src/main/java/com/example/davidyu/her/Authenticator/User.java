@@ -5,24 +5,22 @@ package com.example.davidyu.her.Authenticator;
  */
 public class User {
 
-    String name, username, password, token;
+    String name, username, password, token, id;
 
-    public User(String name, String username, String password, String token){
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.token = token;
+    public String getId() {
+        return id;
     }
 
     public User(){
 
     }
 
-    public User(String username, String password, String token){
+    public User(String username, String password, String token, String id){
         this.username = username;
         this.password = password;
         this.name = "name";
         this.token = token;
+        this.id = id;
     }
 
 }

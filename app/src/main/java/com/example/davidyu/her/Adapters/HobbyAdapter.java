@@ -34,7 +34,7 @@ public class HobbyAdapter extends ArrayAdapter<String> {
         LayoutInflater inflator= LayoutInflater.from(getContext());
         View customView=inflator.inflate(R.layout.adapter_hobby, parent, false);
 
-        String title=getItem(position);
+        final String title=getItem(position);
         textView=(TextView)customView.findViewById(R.id.hobbyName);
         textView.setText(title);
 
@@ -44,10 +44,17 @@ public class HobbyAdapter extends ArrayAdapter<String> {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                 if (buttonView.isChecked()) {
                     //checked
+                    if(!Singleton.getHobbyList().contains(title)){
+                        Singleton.getHobbyList().add(title);
+                    }
                 }
                 else
                 {
                     //not checked
+                    if(Singleton.getHobbyList().contains(title)){
+                        int i = Singleton.getHobbyList().indexOf(title);
+                        Singleton.getHobbyList().remove(i);
+                    }
                 }
                 }
         });

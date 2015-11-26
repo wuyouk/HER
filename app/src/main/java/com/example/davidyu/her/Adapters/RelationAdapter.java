@@ -2,8 +2,10 @@ package com.example.davidyu.her.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,30 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.example.davidyu.her.Activities.MainActivity;
 import com.example.davidyu.her.Activities.ProfileActivity;
+import com.example.davidyu.her.Authenticator.CustomRequest;
+import com.example.davidyu.her.Authenticator.User;
+import com.example.davidyu.her.Authenticator.UserLocalStore;
+import com.example.davidyu.her.Model.Tip;
 import com.example.davidyu.her.Model.UserProfile;
 import com.example.davidyu.her.R;
 import com.example.davidyu.her.Singleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Johnson on 11/23/15.
@@ -72,10 +94,14 @@ public class RelationAdapter extends ArrayAdapter<String> {
                         UserProfile u = Singleton.getUserInstance();
                         u.setHerRelation(r);
 
-                        ((ProfileActivity) context).goToThirdFragment();
+                        Singleton.setCurrentRelationship(r);
+
+                        //((ProfileActivity) context).goToThirdFragment();
 
                         //need to change the intent/fragment
                         dialog.dismiss();
+
+                        sendInformationToServer();
                     }
                 });
                 TextView dismiss = (TextView) dialog.findViewById(R.id.dismiss33);
@@ -92,6 +118,74 @@ public class RelationAdapter extends ArrayAdapter<String> {
         });
 
         return customView;
+    }
+
+    private void sendInformationToServer(){
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        //parameters to be passed into volley POST request
+
+        UserLocalStore user = new UserLocalStore(context);
+        User user1 = user.getLoggedInUser();
+
+        Map<String,String> params = new HashMap<>();
+
+        if (Singleton.getUserInstance().getPersonality()==""){
+            params.put("personality", Singleton.getCurrentPersonality());
+        }else{
+            params.put("personality",Singleton.getUserInstance().getPersonality());
+        }
+
+        //params.put("hobbies",)
+
+        if(Singleton.getUserInstance().getRelationship() == ""){
+            params.put("relationship",Singleton.getCurrentRelationship());
+        }else{
+            params.put("relationship",Singleton.getUserInstance().getRelationship());
+        }
+
+        params.put("userID", user1.getId());
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(String s: Singleton.getHobbyList()){
+            stringBuilder.append(s);
+            stringBuilder.append("\t");
+        }
+
+        params.put("hobbies", stringBuilder.toString());
+
+
+        /*params.put("username", username);
+        params.put("password", password);*/
+
+        CustomRequest jsonObjectRequest = new CustomRequest(Request.Method.POST,
+                "http://i.cs.hku.hk/~sclee/android/" + "setProfile.php",
+                params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.e("volley profile", "success");
+
+                        Log.e("profile:",response.toString());
+
+                        //go to main activity
+                        Intent i = new Intent(context, MainActivity.class);
+                        context.startActivity(i);
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("volley", "failure");
+                        //progressDialog.dismiss();
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
     }
 
 

@@ -11,15 +11,25 @@ public class UserProfile{
 
     String myAge;
     String myOccupation;
-    String myEarnings;
+
+    public String getMyEarnings() {
+        return myEarnings;
+    }
+
+    String myEarnings="";
 
     String herAge;
     String herOccupation;
     String herEarnings;
 
-    String personality;
+    String personality="";
     ArrayList<String> hobby = new ArrayList<String>();
-    String relationship;
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    String relationship="";
 
     public void setMyOccupation(String occupation) {
         this.myOccupation = occupation;

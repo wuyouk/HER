@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.example.davidyu.her.Adapters.RelationAdapter;
 import com.example.davidyu.her.R;
+import com.example.davidyu.her.Singleton;
 
 
 public class ForthProfileFragment extends Fragment {
@@ -33,9 +34,7 @@ public class ForthProfileFragment extends Fragment {
         adapter=new RelationAdapter(getActivity(), relations, relationImages);
         listView.setAdapter(adapter);
 
-
-
-
+        Singleton.getHobbyList().clear();
 
         return layout;
     }

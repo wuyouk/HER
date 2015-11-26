@@ -104,6 +104,8 @@ public class MainSlidingDailyTipsTabFragment extends Fragment implements Updatea
         //parameters to be passed into volley POST request
 
         Map<String,String> params = new HashMap<>();
+        params.put("userID", Singleton.getUserID());
+        //Log.e("userID",Singleton.getUserID());
         /*params.put("username", username);
         params.put("password", password);*/
 

@@ -21,12 +21,47 @@ public class Singleton {
         return user;
     }
 
-
-
-
     private static List<Tip> tipList = new ArrayList<>();
     private static List<Gift> giftList = new ArrayList<>();
     private static List<GroupEntity> timeline = new ArrayList<>();
+    private static List<String> hobbyList = new ArrayList<>();
+    private static String currentPersonality;
+
+    public static String getCurrentRelationship() {
+        return currentRelationship;
+    }
+
+    public static void setCurrentRelationship(String currentRelationship) {
+        Singleton.currentRelationship = currentRelationship;
+    }
+
+    private static String currentRelationship;
+
+    public static String getCurrentPersonality() {
+        return currentPersonality;
+    }
+
+    public static void setCurrentPersonality(String currentPersonality) {
+        Singleton.currentPersonality = currentPersonality;
+    }
+
+    public static List<String> getHobbyList() {
+        return hobbyList;
+    }
+
+    public static void setHobbyList(List<String> hobbyList) {
+        Singleton.hobbyList = hobbyList;
+    }
+
+    private static String userID = "1";
+
+    public static String getUserID() {
+        return userID;
+    }
+
+    public static void setUserID(String userID) {
+        Singleton.userID = userID;
+    }
 
     public static List<GroupEntity> getTimeline() {
         return timeline;

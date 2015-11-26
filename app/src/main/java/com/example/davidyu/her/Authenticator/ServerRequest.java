@@ -71,24 +71,28 @@ public class ServerRequest {
 
                         JSONArray jsonArray;
                         JSONObject jsonObject = null;
-                        String token = "", name = "";
+                        String token = "", name = "", userID = "";
 
                         try {
                             jsonArray = response.getJSONArray("user");
                             jsonObject = jsonArray.getJSONObject(0);
                             token = jsonObject.getString("token");
                             name = jsonObject.getString("name");
+                            userID = jsonObject.getString("id");
+
+                            Singleton.setUserID(userID);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
                         Log.e("volley login", "success");
+                        Log.e("login token:",token);
                         progressDialog.dismiss();
 
                         if (token!=""){
                             //save user credentials
-                            User user = new User(username, password, token);
+                            User user = new User(username, password, token, userID);
                             userLocalStore.storeUserData(user);
                             userLocalStore.setUserLoggedIn(true);
 

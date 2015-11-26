@@ -23,6 +23,7 @@ public class UserLocalStore {
         spEditor.putString("name", user.name);
         spEditor.putString("username", user.username);
         spEditor.putString("password", user.password);
+        spEditor.putString("userID", user.id);
 
         spEditor.commit();
     }
@@ -32,8 +33,9 @@ public class UserLocalStore {
         String name = userLocalDatabase.getString("name", "");
         String username = userLocalDatabase.getString("username", "");
         String password = userLocalDatabase.getString("password", "");
+        String id = userLocalDatabase.getString("userID", "");
 
-        User storedUser = new User(name, username, password);
+        User storedUser = new User(name, username, password,id);
 
         return storedUser;
     }
