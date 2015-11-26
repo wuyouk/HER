@@ -67,8 +67,10 @@ public class UserProfile{
     }
 
     public void cancelHobby(String hobby) {
-        int i = this.hobby.indexOf(hobby);
-        this.hobby.remove(i);
+        if (this.hobby.contains(hobby)){
+            int i = this.hobby.indexOf(hobby);
+            this.hobby.remove(i);
+        }
     }
 
     public ArrayList getHobby() {
