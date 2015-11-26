@@ -66,7 +66,7 @@ public class ThirdProfileFragment extends Fragment {
             hobby = hobby + "-" + s;
         }
 
-        Toast.makeText(getActivity(), hobby.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), hobby.toString(), Toast.LENGTH_SHORT).show();
 
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -91,6 +91,6 @@ public class ThirdProfileFragment extends Fragment {
             }
         });
         dialog.show();
-        Toast.makeText(getActivity(), u.getPersonality(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), u.getPersonality(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.davidyu.her.Activities.ProfileActivity;
 import com.example.davidyu.her.Model.UserProfile;
@@ -116,7 +115,7 @@ public class FirstProfileFragment extends Fragment {
         });
         dialog.show();
 
-        Toast.makeText(getActivity(), "Confirmed basic information", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Confirmed basic information", Toast.LENGTH_SHORT).show();
     }
 
     private void setSpinnerContent(View layout)
