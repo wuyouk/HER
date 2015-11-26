@@ -1,23 +1,18 @@
 package com.example.davidyu.her.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
 import com.example.davidyu.her.Fragments.MainSlidingDailyTipsTabFragment;
 import com.example.davidyu.her.Fragments.MainSlidingGiftsTabFragment;
 import com.example.davidyu.her.Fragments.MainSlidingTimelineTabFragment;
-
 import com.example.davidyu.her.R;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -32,7 +27,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.main = main;
     }
 
-    public static int icons[] = {R.drawable.one, R.drawable.two, R.drawable.three};
+    public static int icons[] = {R.drawable.tip, R.drawable.gift, R.drawable.line};
     ImageSpan imageSpan = null;
     SpannableString spannablestring;
 

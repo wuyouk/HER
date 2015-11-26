@@ -26,9 +26,9 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBarDrawerToggle abdt;
     private DrawerLayout drawerlayout;
-    private String[] titles={"Edit Profile", "Something"};
-    private int [] icons = {R.drawable.one, R.drawable.two};
-    private String[] items={"SOMETHING", "LOGOUT"};
+    private String[] titles={"Edit Profile", "Setting"};
+    private int [] icons = {R.drawable.profile, R.drawable.setting};
+    private String[] items={"LOGOUT"};
     ListAdapter adapter1;
     ListAdapter adapter2;
     ListView listView;

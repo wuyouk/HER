@@ -29,6 +29,9 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.davidyu.her.Activities.MainActivity" />
         </activity>
 
         <activity
@@ -43,7 +46,11 @@
 
         <activity android:name=".Activities.MoreTipsActivity"
             android:label="@string/app_name"
-            android:theme="@style/transparent"/>
+            android:theme="@style/transparent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.davidyu.her.Activities.MainActivity" />
+        </activity>
 
     </application>
 
