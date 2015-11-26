@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/p1_bac"
+    android:background="@drawable/bac1"
     android:id="@+id/base">
 
 
@@ -113,7 +113,7 @@
         android:textColor="#ff6465ff"
         android:layout_above="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:textStyle="italic|bold" />
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Her Info"
         android:textSize="18dp"
-        android:textStyle="italic|bold"
+        android:textStyle="bold"
         android:id="@+id/textView6"
         android:textColor="#ff6465ff"
         android:layout_below="@+id/spinner2"
