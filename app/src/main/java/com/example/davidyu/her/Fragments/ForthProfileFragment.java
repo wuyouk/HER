@@ -32,6 +32,11 @@ public class ForthProfileFragment extends Fragment {
 
         adapter=new RelationAdapter(getActivity(), relations, relationImages);
         listView.setAdapter(adapter);
+
+
+
+
+
         return layout;
     }
 }

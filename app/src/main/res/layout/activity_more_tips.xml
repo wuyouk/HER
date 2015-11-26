@@ -33,7 +33,7 @@
             android:numStars="5"
             android:isIndicator="false"
             android:layout_width="wrap_content"
-            android:layout_height="wtdp"
+            android:layout_height="wrap_content"
             android:id="@+id/ratingBar"
             android:layout_gravity="bottom|right"
             style="@style/myRatingBar"

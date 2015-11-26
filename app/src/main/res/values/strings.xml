@@ -42,6 +42,24 @@
         <item>ENTREPRENEURSHIP</item>
         <item>ENTERTAINER</item>
     </string-array>
+    <string-array name="p_pic">
+        <item>p1</item>
+        <item>p2</item>
+        <item>p3</item>
+        <item>p4</item>
+        <item>p5</item>
+        <item>p6</item>
+        <item>p7</item>
+        <item>p8</item>
+        <item>p9</item>
+        <item>p10</item>
+        <item>p11</item>
+        <item>p12</item>
+        <item>p13</item>
+        <item>p14</item>
+        <item>p15</item>
+        <item>p16</item>
+    </string-array>
     <string-array name="personalities_description">
         <item>Imaginative and strategic thinkers, with a plan for everything.</item>
         <item>Innovative inventors with an unquenchable thirst for knowledge.</item>

@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FAFAFA">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondaryText"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/title3"
+        android:text="Remember you can always come back to this section to change your selection."
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:id="@+id/confirm3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONFIRM"
+        android:background="#FAFAFA"
+        android:textColor="@color/primaryColor"
+        android:textSize="15dp"
+        android:clickable="true"
+        android:layout_alignTop="@+id/dismiss3"
+        android:layout_alignRight="@+id/text3"
+        android:layout_alignEnd="@+id/text3"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Are these her hobbies?"
+        android:id="@+id/title3"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textColor="#424242"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:elevation="0dp"
+        android:layout_margin="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOPE"
+        android:id="@+id/dismiss3"
+        android:clickable="true"
+        android:textColor="@color/secondaryText"
+        android:textSize="15dp"
+        android:layout_below="@+id/text3"
+        android:layout_alignLeft="@+id/text3"
+        android:layout_alignStart="@+id/text3"
+        android:layout_marginBottom="20dp" />
+
+
+</RelativeLayout>

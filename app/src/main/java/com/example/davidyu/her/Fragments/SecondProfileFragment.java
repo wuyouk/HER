@@ -15,12 +15,12 @@ import com.example.davidyu.her.R;
 public class SecondProfileFragment extends Fragment {
     String personalities[];
     String personalitiesDescription[];
+    String imageSource[];
     ListView listView;
     ListAdapter adapter;
 
     public static SecondProfileFragment getInstance(int position) {
         SecondProfileFragment sf = new SecondProfileFragment();
-
         return sf;
     }
     @Override
@@ -29,8 +29,9 @@ public class SecondProfileFragment extends Fragment {
 
         personalities=getResources().getStringArray(R.array.personalities);
         personalitiesDescription = getResources().getStringArray(R.array.personalities_description);
+        imageSource = getResources().getStringArray(R.array.p_pic);
         listView = (ListView) layout.findViewById(R.id.listView);
-        adapter=new PersonalityAdapter(getActivity(), personalities,personalitiesDescription);
+        adapter=new PersonalityAdapter(getActivity(), personalities,personalitiesDescription, imageSource);
         listView.setAdapter(adapter);
         return layout;
     }

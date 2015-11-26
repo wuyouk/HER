@@ -1,22 +1,12 @@
 package com.example.davidyu.her.Activities;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import com.example.davidyu.her.Adapters.ProfileAdapter;
 import com.example.davidyu.her.R;
@@ -64,6 +54,14 @@ public class ProfileActivity extends FragmentActivity {
 
     public void goToThirdFragment(){
         viewPager.setCurrentItem(2,true);
+    }
+
+    public void goToFourFragment(){
+        viewPager.setCurrentItem(3,true);
+    }
+
+    public void goToSecondFragment(){
+        viewPager.setCurrentItem(1,true);
     }
 
 }

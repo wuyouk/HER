@@ -1,11 +1,6 @@
 package com.example.davidyu.her.Authenticator;
 
-import android.accounts.AccountAuthenticatorActivity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,10 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.davidyu.her.Activities.MainActivity;
 import com.example.davidyu.her.R;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 /**
  * login screen for app
@@ -36,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        backgroundImage = (ImageView) findViewById(R.id.loginBackgroundImage);
+        //backgroundImage = (ImageView) findViewById(R.id.loginBackgroundImage);
 
 
 

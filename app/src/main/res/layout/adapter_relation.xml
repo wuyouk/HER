@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <RelativeLayout
         style="?android:attr/buttonBarButtonStyle"
-        android:id="@+id/l1"
+        android:id="@+id/relation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -21,16 +21,17 @@
             android:layout_height="81dp"
             android:clickable="false"
             android:background="#FFFFFF"
-            android:layout_alignTop="@+id/relation_button"
-            android:layout_alignBottom="@+id/relation_button"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="0dp"/>
-        <Button
+        <TextView
             android:id="@+id/relation_button"
             android:layout_width="wrap_content"
             android:layout_height="81dp"
+            android:layout_alignTop="@+id/relation_image"
+            android:layout_alignBottom="@+id/relation_image"
             android:text="RELATION"
             android:textSize="18dp"
+            android:gravity="center"
             android:background="@android:color/transparent"
             android:layout_toRightOf="@+id/relation_image"
             android:layout_alignParentRight="true"

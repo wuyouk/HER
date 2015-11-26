@@ -5,10 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.davidyu.her.Model.UserProfile;
 import com.example.davidyu.her.R;
+import com.example.davidyu.her.Singleton;
 
 /**
  * Created by Johnson on 11/23/15.
@@ -33,38 +37,37 @@ public class HobbyAdapter extends ArrayAdapter<String> {
         String title=getItem(position);
         textView=(TextView)customView.findViewById(R.id.hobbyName);
         textView.setText(title);
-//        topLayout = (RelativeLayout) customView.findViewById(R.id.topLayout3);
-//        topLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final Dialog dialog = new Dialog(context);
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialog.setContentView(R.layout.dialogbox_getting_curious);
-//                TextView confirm = (TextView) dialog.findViewById(R.id.confirm);
-//                // final Intent intent = new Intent(Intent.ACTION_VIEW);
-//                //  intent.setData(Uri.parse(ONLINE_PAYMENT_URL+userId));
-//
-//                confirm.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        //TODO go to next fragment
-//                        ((ProfileActivity)context).goToThirdFragment();
-//                        dialog.dismiss();
-//                    }
-//                });
-//                TextView dismiss = (TextView) dialog.findViewById(R.id.dismiss);
-//                dismiss.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.cancel();
-//                    }
-//                });
-//                dialog.show();
-//            }
-//
-//
-//        });
 
+        final CheckBox c = (CheckBox) customView.findViewById(R.id.hCheckBox);
+        c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    //checked
+                }
+                else
+                {
+                    //not checked
+                }
+                }
+        });
+
+        topLayout = (RelativeLayout) customView.findViewById(R.id.topLayout3);
+        topLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox c = (CheckBox) v.findViewById(R.id.hCheckBox);
+                TextView t = (TextView) v.findViewById(R.id.hobbyName);
+                UserProfile u = Singleton.getUserInstance();
+                if (!c.isChecked()){
+                    c.setChecked(true);
+                    u.addHobby(t.getText().toString());
+                } else {
+                    c.setChecked(false);
+                    u.cancelHobby(t.getText().toString());
+                }
+            }
+        });
         return customView;
     }
 }

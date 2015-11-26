@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.example.davidyu.her.Model.Gift;
 import com.example.davidyu.her.Model.Tip;
+import com.example.davidyu.her.Model.UserProfile;
 import com.example.davidyu.her.models.GroupEntity;
 
 import java.util.ArrayList;
@@ -13,6 +14,15 @@ import java.util.List;
  * Created by user on 11/16/2015.
  */
 public class Singleton {
+
+    private static UserProfile user = new UserProfile();
+
+    public static UserProfile getUserInstance(){
+        return user;
+    }
+
+
+
 
     private static List<Tip> tipList = new ArrayList<>();
     private static List<Gift> giftList = new ArrayList<>();
@@ -70,7 +80,7 @@ public class Singleton {
         return ourInstance;
     }
 
-    private Singleton() {
+    public Singleton() {
     }
 
     public static List<Tip> getTipList(){
