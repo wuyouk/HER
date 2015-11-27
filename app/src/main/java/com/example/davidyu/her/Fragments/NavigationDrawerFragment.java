@@ -89,6 +89,8 @@ public class NavigationDrawerFragment extends Fragment {
                         //TODO:
                         //Intent i1 = new Intent(getActivity(), TutorTermsAndConditionsActivity.class);
                         //startActivity(i1);
+                        serverRequest.logoutUser();
+                        startActivity(new Intent(getContext(), LoginActivity.class));
                         break;
 
                     case 1:

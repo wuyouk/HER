@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.davidyu.her.Adapters.PagerAdapter;
 import com.example.davidyu.her.Authenticator.LoginActivity;
@@ -16,6 +17,7 @@ import com.example.davidyu.her.Authenticator.UserLocalStore;
 import com.example.davidyu.her.Fragments.MainSlidingDailyTipsTabFragment;
 import com.example.davidyu.her.Fragments.NavigationDrawerFragment;
 import com.example.davidyu.her.R;
+import com.example.davidyu.her.Singleton;
 import com.example.davidyu.her.Views.SlidingTabLayout;
 
 
@@ -30,6 +32,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Singleton.isFirstTime()){
+
+            //Toast.makeText(getApplicationContext(),"firsttime",Toast.LENGTH_LONG).show();
+
+            Singleton.setFirstTime(false);
+            Intent i = new Intent(MainActivity.this,ProfileActivity.class);
+            startActivity(i);
+        }else{
+            //Toast.makeText(getApplicationContext(),"not first",Toast.LENGTH_LONG).show();
+        }
+
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);

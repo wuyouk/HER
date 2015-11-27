@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -46,11 +47,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainSlidingGiftsTabFragment extends Fragment {
+public class MainSlidingGiftsTabFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView giftRecyclerView;
     List<Gift> giftList = new ArrayList<>();
     GiftsRecyclerViewAdapter adapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     static View layout;
 
@@ -68,14 +70,8 @@ public class MainSlidingGiftsTabFragment extends Fragment {
         giftRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         giftRecyclerView.setHasFixedSize(true);
 
-        Gift g = new Gift();
-        g.setName("Gift");
-        g.setText("STINRSTTOINRSTOINESRT");
-        g.setIcon("http://i.cs.hku.hk/~sclee/android/pictures/cityLights.jpg");
-
-        //giftList.add(g);
-
-        //updateUI();
+        swipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.giftSwipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         return layout;
 
@@ -167,5 +163,12 @@ public class MainSlidingGiftsTabFragment extends Fragment {
                 });
 
         queue.add(jsonObjectRequest);
+    }
+
+    //refresh layout for swipe refresh layout
+    @Override
+    public void onRefresh() {
+
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

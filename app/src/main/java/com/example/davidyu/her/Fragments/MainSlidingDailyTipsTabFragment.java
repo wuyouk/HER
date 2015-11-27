@@ -2,6 +2,7 @@ package com.example.davidyu.her.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,11 +35,12 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MainSlidingDailyTipsTabFragment extends Fragment implements Updateable {
+public class MainSlidingDailyTipsTabFragment extends Fragment implements Updateable, SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView tipRecyclerView;
     List<Tip> tipList = new ArrayList<>();
     TipsRecyclerViewAdapter adapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     ServerRequest serverRequest;
 
@@ -53,6 +55,9 @@ public class MainSlidingDailyTipsTabFragment extends Fragment implements Updatea
         tipRecyclerView = (RecyclerView) layout.findViewById(R.id.tipRecyclerView);
         tipRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tipRecyclerView.setHasFixedSize(true);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.tipSwipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         getTips();
 
@@ -116,6 +121,8 @@ public class MainSlidingDailyTipsTabFragment extends Fragment implements Updatea
                     @Override
                     public void onResponse(JSONObject response) {
 
+                        swipeRefreshLayout.setRefreshing(false);
+
                         Log.e("volley", "success");
 
                         List<Tip> tipList = new ArrayList<>();
@@ -148,7 +155,10 @@ public class MainSlidingDailyTipsTabFragment extends Fragment implements Updatea
 
                         Singleton.getInstance().setTipList(tipList);
 
+
+
                         updateUI();
+
 
                     }
                 },
@@ -162,5 +172,10 @@ public class MainSlidingDailyTipsTabFragment extends Fragment implements Updatea
                 });
 
         queue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public void onRefresh() {
+        getTips();
     }
 }

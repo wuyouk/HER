@@ -1,7 +1,10 @@
 package com.example.davidyu.her;
 
+import android.app.Application;
+import android.content.Intent;
 import android.graphics.Bitmap;
 
+import com.example.davidyu.her.Authenticator.LoginActivity;
 import com.example.davidyu.her.Model.Gift;
 import com.example.davidyu.her.Model.Tip;
 import com.example.davidyu.her.Model.UserProfile;
@@ -13,7 +16,22 @@ import java.util.List;
 /**
  * Created by user on 11/16/2015.
  */
-public class Singleton {
+public class Singleton extends Application {
+
+    private static boolean firstTime = true;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    public static boolean isFirstTime() {
+        return firstTime;
+    }
+
+    public static void setFirstTime(boolean firstTime) {
+        Singleton.firstTime = firstTime;
+    }
 
     private static UserProfile user = new UserProfile();
 

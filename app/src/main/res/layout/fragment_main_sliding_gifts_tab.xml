@@ -5,9 +5,17 @@
     android:id="@+id/parent_layout"
     android:background="#FAFAFA">
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/giftSwipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/giftRecyclerView"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/giftRecyclerView"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>
