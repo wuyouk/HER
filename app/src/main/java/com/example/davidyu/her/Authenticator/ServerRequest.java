@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.davidyu.her.Activities.MainActivity;
+import com.example.davidyu.her.Activities.ProfileActivity;
 import com.example.davidyu.her.Model.Tip;
 import com.example.davidyu.her.Singleton;
 
@@ -96,10 +97,21 @@ public class ServerRequest {
                             userLocalStore.storeUserData(user);
                             userLocalStore.setUserLoggedIn(true);
 
-                            //remove from backstack
-                            Intent i = new Intent(context, MainActivity.class);
-                            i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            context.startActivity(i);
+                            if(Singleton.isFirstTime()){
+
+                                //Toast.makeText(getApplicationContext(),"firsttime",Toast.LENGTH_LONG).show();
+
+                                Singleton.setFirstTime(false);
+                                Intent i = new Intent(context, ProfileActivity.class);
+                                i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                context.startActivity(i);
+                            }else{
+                                //remove from backstack
+                                Intent i = new Intent(context, MainActivity.class);
+                                i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                context.startActivity(i);
+                            }
+
                         }else{
                             try {
                                 String message = jsonObject.getString("message");

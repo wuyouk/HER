@@ -33,16 +33,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Singleton.isFirstTime()){
-
-            //Toast.makeText(getApplicationContext(),"firsttime",Toast.LENGTH_LONG).show();
-
-            Singleton.setFirstTime(false);
-            Intent i = new Intent(MainActivity.this,ProfileActivity.class);
-            startActivity(i);
-        }else{
-            //Toast.makeText(getApplicationContext(),"not first",Toast.LENGTH_LONG).show();
-        }
 
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.app_bar);

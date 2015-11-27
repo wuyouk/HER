@@ -116,6 +116,8 @@ public class MainSlidingGiftsTabFragment extends Fragment implements SwipeRefres
                     @Override
                     public void onResponse(JSONObject response) {
 
+                        swipeRefreshLayout.setRefreshing(false);
+
                         Log.e("volleyGifts", "success");
 
                         List<Gift> giftList = new ArrayList<>();
@@ -169,6 +171,6 @@ public class MainSlidingGiftsTabFragment extends Fragment implements SwipeRefres
     @Override
     public void onRefresh() {
 
-        swipeRefreshLayout.setRefreshing(false);
+        getGifts();
     }
 }

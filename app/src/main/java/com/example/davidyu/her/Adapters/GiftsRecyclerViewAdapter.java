@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +84,7 @@ public class GiftsRecyclerViewAdapter extends RecyclerView.Adapter<GiftsRecycler
             Picasso.with(context)
                     .load(gift.getIcon())
                     //.resize(200,200)
-                    //.placeholder(add drawable) //placeholder image for empty slots
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.heart_icon)) //placeholder image for empty slots
                     //.error(add drawable) //image to use when download fails
                     .into(giftIcon);
 
