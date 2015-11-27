@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.davidyu.her.R;
+import com.example.davidyu.her.Singleton;
 
 /**
  * Created by user on 11/13/2015.
@@ -44,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
                     newUser.name = name;
                     newUser.username = username;
                     newUser.password = password;
+
+                    Singleton.setFirstTime(true);
 
                     serverRequest.registerUser(newUser);
 

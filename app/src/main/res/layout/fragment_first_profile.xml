@@ -193,7 +193,7 @@
         android:touchscreenBlocksFocus="false"
         style="@style/spinnerStyleView"
         android:layout_below="@+id/seekBar2"
-        android:layout_marginTop="18dp" />
+        android:layout_marginTop="14dp" />
 
     <TextView
         android:layout_width="wrap_content"
